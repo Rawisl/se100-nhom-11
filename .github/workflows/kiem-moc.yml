@@ -1,0 +1,25 @@
+name: Kiểm mốc
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  kiem-moc:
+    name: Kiểm mốc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cài đặt Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Chạy script kiểm mốc
+        run: python scripts/kiem_moc.py
