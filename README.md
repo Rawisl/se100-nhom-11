@@ -1,23 +1,15 @@
-# [SquadMetrics] — SE100 · Nhóm 11
+# [Tên hệ thống] — SE100 · Nhóm __
 
-Hệ thống quản lý đội tuyển thi đấu phục vụ ba nhóm người dùng: huấn luyện viên, thủ quỹ và thành viên (thử việc hoặc chính thức), cùng ứng cử viên nộp hồ sơ từ bên ngoài.
-
-Huấn luyện viên dùng hệ thống để đăng tin tuyển, xét duyệt hồ sơ, đánh giá thử việc, lập lịch tập và chốt đội hình thi đấu, nhằm vận hành đội theo đúng lộ trình tuyển → thử → chính thức → thi đấu.
-
-Thủ quỹ dùng hệ thống để tạo khoản đóng quỹ theo tháng, nhắc và xác nhận thanh toán, ghi nhận thu chi, nhằm duy trì quỹ đội minh bạch và đủ chi tiêu.
-
-Thành viên dùng hệ thống để xem lịch biểu, đóng quỹ qua QR và theo dõi kết quả thi đấu cá nhân, nhằm chủ động thời gian và nắm được tình trạng của mình trong đội.
-
-Điều không được phép xảy ra: quỹ đội chi vượt quá số dư hiện có tại bất kỳ thời điểm nào, và một thành viên chưa qua thử việc lại được xếp vào đội hình thi đấu chính thức.
+> Xoá dòng này rồi viết 5 dòng mô tả hệ thống: **ai** dùng, để **làm gì**, và điều gì **không được phép** xảy ra. Giảng viên đọc phần này đầu tiên khi duyệt đề tài, nên viết cho rõ.
 
 ## Thành viên
 
 | Tên | GitHub | Chủ trì mốc |
 |---|---|---|
-| Trần Thị Hoài Ngọc | Rawisl | M1: Yêu cầu |
-|Lê Nguyễn Hữu Khang | WhoKeng | M2: Mô hình hoá |
+| | | M1: Yêu cầu |
+|Lê Nguyễn Hữu Khang | | M2: Mô hình hoá |
 | | | M3–M4: Thiết kế |
-| | | M5: Giao hàng |
+|Bùi Hồ Trúc Anh | | M5: Giao hàng |
 
 ## URL
 
