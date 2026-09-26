@@ -649,3 +649,311 @@ Bạn có thể tạo file `phan-tu/M0.md` và điền theo mẫu sau:
 
 > 💡 **Cách lấy mã commit hash 7 ký tự:**
 > Mở terminal gõ lệnh: `git log --oneline -n 3` $\rightarrow$ copy 7 ký tự đầu tiên của commit gần nhất (ví dụ: `c8d9e1f`) rồi dán vào mục 2 và 3 trong file phản tư.
+
+---
+
+---
+## Câu hỏi 8
+### 👤 User
+  Từ infor để tài quản lý đội tuyển thi đấu và user story. Dưới quy mô một đồ án môn học phải làm trong 11-12 tuần, kiểm tra xem user story đã đủ để cover nhu cầu của khách hàng ảo chưa, có thể thêm hoặc loại use case nếu cần.
+  Quản lý đội tuyển thi đấu. Cơ bản gồm thành viên, huấn luyện viên, thủ quỹ. Flow gợi ý là tuyển -> thử -> chính thức -> Thi đấu. Trong đó có ràng buộc chi không vượt quỹ
+  Use case/ User story:
+  là [ai], tôi muốn [làm gì], để [được gì]
+Là thành viên chính thức, tôi muốn theo dõi lịch biểu của đội, để sắp xếp thời gian cá nhân
+Là ứng cử viên, tôi muốn nộp hồ sơ ứng tuyển, để tham gia quy trình gia nhập đội
+Là thủ quỹ, tôi muốn nhắc các thành viên đóng quỹ, để quỹ đội đầy đủ trong tháng
+Là thủ quỹ, tôi muốn theo dõi lịch sử thu chi quỹ đội, để kiểm tra và quản lý dòng tiền
+Là huấn luyện viên, tôi muốn lên kế hoạch cho lịch biểu tuần tới của đội, để các thành viên chủ động sắp xếp thời gian
+Là một huấn luyện viên, tôi muốn có danh sách các tuyển thủ để có thông tin liên lạc của tuyển thủ
+Là thành viên chính thức, tôi muốn thanh toán nhanh qua qr, để đóng quỹ một cách thuận tiện.
+Là huấn luyện viên, tôi muốn thông báo tuyển người, để tìm ứng cử viên tiềm năng
+Là huấn luyện viên, tôi muốn bảng thống kê, để đánh giá hiệu suất thành viên.
+
+### 🤖 Agent
+Các use case cũ đều đúng đề tài, không cái nào phải loại. Vấn đề là **thiếu use case cho chính flow và ràng buộc mà đề tài nêu**: cả 9 story hiện tại chỉ có "nộp hồ sơ" và "đăng tin" thuộc giai đoạn tuyển, còn thử, chính thức, thi đấu và chi quỹ gần như trống. Các thao tác chuyển giai đoạn không có story nên diagram trước đó phải bù bằng kế thừa và enum thừa.
+
+#### Danh sách use case đề xuất
+
+| # | Story | Giai đoạn | Nguồn | Mức |
+|---|---|---|---|---|
+| 1 | Là huấn luyện viên, tôi muốn đăng thông báo tuyển người, để tìm ứng cử viên tiềm năng | Tuyển | Giữ | Cốt lõi |
+| 2 | Là ứng cử viên, tôi muốn nộp hồ sơ ứng tuyển và tra cứu kết quả, để tham gia quy trình gia nhập đội | Tuyển | Giữ, gộp thêm tra cứu kết quả | Cốt lõi |
+| 3 | Là huấn luyện viên, tôi muốn xét duyệt hồ sơ và mời vào thử việc, để chọn người phù hợp | Tuyển → Thử | **Thêm** | Cốt lõi |
+| 4 | Là huấn luyện viên, tôi muốn đánh giá thành viên thử việc và quyết định cho lên chính thức hoặc loại, để đội chỉ giữ người đạt yêu cầu | Thử → Chính thức | **Thêm** | Cốt lõi |
+| 5 | Là huấn luyện viên, tôi muốn lên lịch biểu tuần tới của đội, để các thành viên chủ động sắp xếp thời gian | Vận hành | Giữ, thêm kiểm tra trùng lịch | Cốt lõi |
+| 6 | Là thành viên (thử việc hoặc chính thức), tôi muốn theo dõi lịch biểu của đội, để sắp xếp thời gian cá nhân | Vận hành | Giữ, bỏ chữ "chính thức" vì người thử việc cũng phải đi tập | Cốt lõi |
+| 7 | Là huấn luyện viên, tôi muốn điểm danh buổi tập và buổi thi đấu, để có dữ liệu chuyên cần | Vận hành | **Thêm** | Nên có |
+| 8 | Là huấn luyện viên và thủ quỹ, chúng tôi muốn xem danh sách thành viên kèm thông tin liên lạc, để liên hệ khi cần | Vận hành | Giữ, đổi "tuyển thủ" thành "thành viên" cho thống nhất | Nên có |
+| 9 | Là huấn luyện viên, tôi muốn lập đội hình và ghi kết quả từng trận, để tổ chức thi đấu và lưu dữ liệu đánh giá | Chính thức → Thi đấu | **Thêm** | Cốt lõi |
+| 10 | Là huấn luyện viên, tôi muốn xem bảng thống kê chuyên cần và thi đấu của từng thành viên, để đánh giá hiệu suất | Thi đấu | Giữ, xác định rõ dữ liệu nguồn | Cốt lõi |
+| 11 | Là thủ quỹ, tôi muốn tạo khoản đóng quỹ theo tháng và nhắc thành viên chưa đóng, để quỹ đội đầy đủ trong tháng | Quỹ | Giữ, gộp "tạo khoản" vào "nhắc" | Cốt lõi |
+| 12 | Là thành viên chính thức, tôi muốn thanh toán nhanh qua QR, để đóng quỹ thuận tiện | Quỹ | Giữ, chỉ mô phỏng | Cốt lõi |
+| 13 | Là thủ quỹ, tôi muốn xác nhận khoản đã đóng, để cập nhật đúng số dư quỹ | Quỹ | **Thêm** | Nên có |
+| 14 | Là thủ quỹ, tôi muốn ghi nhận khoản chi và bị hệ thống từ chối nếu vượt số dư quỹ, để bảo đảm chi không vượt quỹ | Quỹ | **Thêm**, đây là ràng buộc trung tâm của đề tài | Cốt lõi |
+| 15 | Là thủ quỹ, tôi muốn theo dõi lịch sử thu chi của quỹ, để kiểm tra và quản lý dòng tiền | Quỹ | Giữ | Cốt lõi |
+
+- **Gộp:** story "danh sách tuyển thủ" vào #8, "nhắc đóng quỹ" vào #11, "tra cứu kết quả" vào #2.
+- **Thêm:** #3, #4, #7, #9, #13, #14. Trong đó #3, #4, #9 là ba bước chuyển giai đoạn của flow, #14 là ràng buộc của đề tài.
+- **Nếu cần cắt phạm vi:** #7 (đổi thành một cột chuyên cần đơn giản) và #13 (QR mô phỏng tự chuyển sang "chờ xác nhận", thủ quỹ bấm xác nhận).
+- **Giả định nên ghi vào báo cáo:** chỉ thành viên chính thức phải đóng quỹ; thủ quỹ và huấn luyện viên không đóng.
+
+
+---
+
+---
+## Câu hỏi 9
+### 👤 User
+
+hoàn thiện mã mermaid mà tôi có thể copy
+### 🤖 Agent
+```mermaid
+classDiagram
+    direction TB
+
+    class DoiTuyen {
+        +String maDoi
+        +String tenDoi
+        +String boMon
+        +thongKeCaNhan(tv: ThanhVien) ThongKeCaNhan
+    }
+
+    class ThanhVien {
+        +String maTV
+        +String hoTen
+        +String sdt
+        +String email
+        +VaiTro vaiTro
+        +TrangThaiTV trangThai
+        +String viTriThiDau
+        +int soAo
+        +Date ngayVaoDoi
+        +capNhatLienLac(sdt: String, email: String) void
+        +chuyenTrangThai(moi: TrangThaiTV) void
+        +xemLichBieu() List~LichBieu~
+    }
+
+    class TinTuyenDung {
+        +String maTin
+        +String tieuDe
+        +String yeuCau
+        +int soLuongCan
+        +Date hanNop
+        +bool dangMo
+        +dangTin() void
+        +dongTin() void
+    }
+
+    class HoSoUngTuyen {
+        +String maHoSo
+        +String hoTen
+        +String sdt
+        +String email
+        +String hoSoUrl
+        +DateTime ngayNop
+        +TrangThaiHoSo trangThai
+        +String nhanXet
+        +moiThu(hlv: ThanhVien) ThanhVien
+        +tuChoi(lyDo: String) void
+        +rutHoSo() void
+    }
+
+    class DanhGiaThuViec {
+        +String maDG
+        +Date ngayDanhGia
+        +float diemChuyenMon
+        +String nhanXet
+        +KetQuaThuViec ketQua
+        +chotKetQua() void
+    }
+
+    class LichBieu {
+        +String maLich
+        +String tieuDe
+        +LoaiLich loai
+        +DateTime batDau
+        +DateTime ketThuc
+        +String diaDiem
+        +kiemTraTrung() bool
+        +guiThongBao() void
+    }
+
+    class DiemDanh {
+        +bool coMat
+        +String lyDoVang
+    }
+
+    class TranDau {
+        +String maTran
+        +String tenGiai
+        +String doiThu
+        +KetQuaTran ketQua
+        +String tySo
+        +chotDoiHinh(ds: List~ThanhVien~) void
+        +ghiKetQua(kq: KetQuaTran, tySo: String) void
+    }
+
+    class ThamGiaTranDau {
+        +String viTri
+        +int phutThiDau
+        +float diemDanhGia
+        +String nhanXet
+    }
+
+    class ThongKeCaNhan {
+        <<computed>>
+        +float tyLeChuyenCan
+        +int soTranThamGia
+        +float tyLeThang
+        +float diemDanhGiaTB
+    }
+
+    class Quy {
+        +String maQuy
+        +Decimal soDu
+        +String taiKhoanNhan
+        +kiemTraKhaNangChi(soTien: Decimal) bool
+        +ghiThu(gd: GiaoDich) void
+        +ghiChi(gd: GiaoDich) bool
+        +taoKhoanDongThang(ky: String, soTien: Decimal) List~KhoanDongQuy~
+        +nhacThanhVienChuaDong(ky: String) int
+    }
+
+    class KhoanDongQuy {
+        +String maKhoan
+        +String ky
+        +Decimal soTien
+        +Date hanDong
+        +TrangThaiKhoan trangThai
+        +taoMaQR() String
+        +danhDauDaDong(gd: GiaoDich) void
+    }
+
+    class GiaoDich {
+        +String maGD
+        +LoaiGD loai
+        +String hangMuc
+        +Decimal soTien
+        +DateTime thoiGian
+        +TrangThaiGD trangThai
+        +String ghiChu
+    }
+
+    class ThongBao {
+        +String maTB
+        +LoaiThongBao loai
+        +String noiDung
+        +DateTime thoiGian
+        +bool daDoc
+    }
+
+    class VaiTro {
+        <<enumeration>>
+        TUYEN_THU
+        HUAN_LUYEN_VIEN
+        THU_QUY
+    }
+
+    class TrangThaiTV {
+        <<enumeration>>
+        THU
+        CHINH_THUC
+        DA_LOAI
+        ROI_DOI
+    }
+
+    class TrangThaiHoSo {
+        <<enumeration>>
+        DA_NOP
+        DANG_XET
+        MOI_THU
+        TU_CHOI
+        DA_RUT
+    }
+
+    class KetQuaThuViec {
+        <<enumeration>>
+        DAT
+        KHONG_DAT
+    }
+
+    class LoaiLich {
+        <<enumeration>>
+        TAP
+        HOP
+        THI_DAU
+    }
+
+    class KetQuaTran {
+        <<enumeration>>
+        THANG
+        HOA
+        THUA
+    }
+
+    class LoaiGD {
+        <<enumeration>>
+        THU
+        CHI
+    }
+
+    class TrangThaiGD {
+        <<enumeration>>
+        CHO_XAC_NHAN
+        HOAN_TAT
+        TU_CHOI
+    }
+
+    class TrangThaiKhoan {
+        <<enumeration>>
+        CHUA_DONG
+        CHO_XAC_NHAN
+        DA_DONG
+        QUA_HAN
+    }
+
+    class LoaiThongBao {
+        <<enumeration>>
+        NHAC_QUY
+        LICH_MOI
+        KET_QUA_HO_SO
+    }
+
+    %% Doi tuyen la goc so huu
+    DoiTuyen "1" *-- "0..*" ThanhVien : gom
+    DoiTuyen "1" *-- "1" Quy : coQuy
+    DoiTuyen "1" *-- "0..*" TinTuyenDung : dang
+    DoiTuyen "1" *-- "0..*" LichBieu : lap
+    DoiTuyen "1" *-- "0..*" TranDau : thamGia
+    DoiTuyen ..> ThongKeCaNhan : tinh
+
+    %% Flow: Tuyen -> Thu -> Chinh thuc
+    TinTuyenDung "1" *-- "0..*" HoSoUngTuyen : nhan
+    HoSoUngTuyen "1" --> "0..1" ThanhVien : moiThuThanh
+    ThanhVien "1" *-- "0..*" DanhGiaThuViec : duocDanhGia
+    DanhGiaThuViec "0..*" --> "1" ThanhVien : nguoiDanhGia
+
+    %% Lich, diem danh, thi dau
+    LichBieu "1" *-- "0..*" DiemDanh : ghiNhan
+    DiemDanh "0..*" --> "1" ThanhVien : cua
+    TranDau "1" --> "1" LichBieu : lichThiDau
+    TranDau "1" *-- "0..*" ThamGiaTranDau : doiHinh
+    ThamGiaTranDau "0..*" --> "1" ThanhVien : cua
+
+    %% Quy
+    Quy "1" *-- "0..*" GiaoDich : ghiNhan
+    Quy "1" *-- "0..*" KhoanDongQuy : phatSinh
+    KhoanDongQuy "0..*" --> "1" ThanhVien : phaiDong
+    KhoanDongQuy "1" --> "0..1" GiaoDich : thanhToanBang
+    GiaoDich "0..*" --> "1" ThanhVien : nguoiThucHien
+
+    %% Thong bao
+    ThongBao "0..*" --> "1" ThanhVien : nguoiNhan
+
+    %% Rang buoc nghiep vu
+    note for ThanhVien "Flow: HoSoUngTuyen (tuyen) -> THU -> CHINH_THUC -> ThamGiaTranDau (thi dau)\nDA_LOAI: khong dat thu. ROI_DOI: roi doi.\nviTriThiDau, soAo chi co y nghia voi TUYEN_THU.\nChi thanh vien CHINH_THUC moi phai dong quy."
+    note for Quy "INVARIANT: soDu >= 0\nghiChi() chi thuc thi khi kiemTraKhaNangChi() == true"
+```
+
+So với bản trước, chỉ có một thay đổi: quan hệ `DanhGiaThuViec` đến người đánh giá được đổi nhãn thành `nguoiDanhGia` để phân biệt với thành viên được đánh giá. Mã đã rà lại cú pháp (tiền dùng `Decimal`, chuỗi `note` dùng `\n`, không còn `TRUNNG_TUYEN`).
+
+Nếu cần kiểm tra hiển thị, dán vào mermaid.live. Diagram khá lớn nên nên xuất SVG hoặc PNG khổ rộng khi đưa vào báo cáo.
