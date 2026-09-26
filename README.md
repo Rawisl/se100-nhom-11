@@ -15,13 +15,13 @@ Thành viên dùng hệ thống để xem lịch biểu, đóng quỹ qua QR và
 | Tên | GitHub | Chủ trì mốc |
 |---|---|---|
 | Trần Thị Hoài Ngọc | Rawisl | M1: Yêu cầu |
-|Lê Nguyễn Hữu Khang | | M2: Mô hình hoá |
+| Lê Nguyễn Hữu Khang | WhoKeng | M2: Mô hình hoá |
 | | | M3–M4: Thiết kế |
 | | | M5: Giao hàng |
 
 ## URL
 
-- Bản chạy: https://
+- Bản chạy: [https://squadmetrics.id.vn](https://squadmetrics.id.vn/)
 - Pipeline: xem tab Actions
 
 ## Cấu trúc repo
