@@ -1,0 +1,249 @@
+# Sơ đồ lớp chi tiết
+
+```mermaid
+classDiagram
+    direction TB
+
+    class DoiTuyen {
+        +String maDoi
+        +String tenDoi
+        +String boMon
+        +thongKeCaNhan(tv: ThanhVien) ThongKeCaNhan
+    }
+
+    class ThanhVien {
+        +String maTV
+        +String hoTen
+        +String sdt
+        +String email
+        +VaiTro vaiTro
+        +TrangThaiTV trangThai
+        +String viTriThiDau
+        +int soAo
+        +Date ngayVaoDoi
+        +capNhatLienLac(sdt: String, email: String) void
+        +chuyenTrangThai(moi: TrangThaiTV) void
+        +xemLichBieu() List~LichBieu~
+    }
+
+    class TinTuyenDung {
+        +String maTin
+        +String tieuDe
+        +String yeuCau
+        +int soLuongCan
+        +Date hanNop
+        +bool dangMo
+        +dangTin() void
+        +dongTin() void
+    }
+
+    class HoSoUngTuyen {
+        +String maHoSo
+        +String hoTen
+        +String sdt
+        +String email
+        +String hoSoUrl
+        +DateTime ngayNop
+        +TrangThaiHoSo trangThai
+        +String nhanXet
+        +moiThu(hlv: ThanhVien) ThanhVien
+        +tuChoi(lyDo: String) void
+        +rutHoSo() void
+    }
+
+    class DanhGiaThuViec {
+        +String maDG
+        +Date ngayDanhGia
+        +float diemChuyenMon
+        +String nhanXet
+        +KetQuaThuViec ketQua
+        +chotKetQua() void
+    }
+
+    class LichBieu {
+        +String maLich
+        +String tieuDe
+        +LoaiLich loai
+        +DateTime batDau
+        +DateTime ketThuc
+        +String diaDiem
+        +kiemTraTrung() bool
+        +guiThongBao() void
+    }
+
+    class DiemDanh {
+        +bool coMat
+        +String lyDoVang
+    }
+
+    class TranDau {
+        +String maTran
+        +String tenGiai
+        +String doiThu
+        +KetQuaTran ketQua
+        +String tySo
+        +chotDoiHinh(ds: List~ThanhVien~) void
+        +ghiKetQua(kq: KetQuaTran, tySo: String) void
+    }
+
+    class ThamGiaTranDau {
+        +String viTri
+        +int phutThiDau
+        +float diemDanhGia
+        +String nhanXet
+    }
+
+    class ThongKeCaNhan {
+        <<computed>>
+        +float tyLeChuyenCan
+        +int soTranThamGia
+        +float tyLeThang
+        +float diemDanhGiaTB
+    }
+
+    class Quy {
+        +String maQuy
+        +Decimal soDu
+        +String taiKhoanNhan
+        +kiemTraKhaNangChi(soTien: Decimal) bool
+        +ghiThu(gd: GiaoDich) void
+        +ghiChi(gd: GiaoDich) bool
+        +taoKhoanDongThang(ky: String, soTien: Decimal) List~KhoanDongQuy~
+        +nhacThanhVienChuaDong(ky: String) int
+    }
+
+    class KhoanDongQuy {
+        +String maKhoan
+        +String ky
+        +Decimal soTien
+        +Date hanDong
+        +TrangThaiKhoan trangThai
+        +taoMaQR() String
+        +danhDauDaDong(gd: GiaoDich) void
+    }
+
+    class GiaoDich {
+        +String maGD
+        +LoaiGD loai
+        +String hangMuc
+        +Decimal soTien
+        +DateTime thoiGian
+        +TrangThaiGD trangThai
+        +String ghiChu
+    }
+
+    class ThongBao {
+        +String maTB
+        +LoaiThongBao loai
+        +String noiDung
+        +DateTime thoiGian
+        +bool daDoc
+    }
+
+    class VaiTro {
+        <<enumeration>>
+        TUYEN_THU
+        HUAN_LUYEN_VIEN
+        THU_QUY
+    }
+
+    class TrangThaiTV {
+        <<enumeration>>
+        THU
+        CHINH_THUC
+        DA_LOAI
+        ROI_DOI
+    }
+
+    class TrangThaiHoSo {
+        <<enumeration>>
+        DA_NOP
+        DANG_XET
+        MOI_THU
+        TU_CHOI
+        DA_RUT
+    }
+
+    class KetQuaThuViec {
+        <<enumeration>>
+        DAT
+        KHONG_DAT
+    }
+
+    class LoaiLich {
+        <<enumeration>>
+        TAP
+        HOP
+        THI_DAU
+    }
+
+    class KetQuaTran {
+        <<enumeration>>
+        THANG
+        HOA
+        THUA
+    }
+
+    class LoaiGD {
+        <<enumeration>>
+        THU
+        CHI
+    }
+
+    class TrangThaiGD {
+        <<enumeration>>
+        CHO_XAC_NHAN
+        HOAN_TAT
+        TU_CHOI
+    }
+
+    class TrangThaiKhoan {
+        <<enumeration>>
+        CHUA_DONG
+        CHO_XAC_NHAN
+        DA_DONG
+        QUA_HAN
+    }
+
+    class LoaiThongBao {
+        <<enumeration>>
+        NHAC_QUY
+        LICH_MOI
+        KET_QUA_HO_SO
+    }
+
+    %% Doi tuyen la goc so huu
+    DoiTuyen "1" *-- "0..*" ThanhVien : gom
+    DoiTuyen "1" *-- "1" Quy : coQuy
+    DoiTuyen "1" *-- "0..*" TinTuyenDung : dang
+    DoiTuyen "1" *-- "0..*" LichBieu : lap
+    DoiTuyen "1" *-- "0..*" TranDau : thamGia
+    DoiTuyen ..> ThongKeCaNhan : tinh
+
+    %% Flow: Tuyen -> Thu -> Chinh thuc
+    TinTuyenDung "1" *-- "0..*" HoSoUngTuyen : nhan
+    HoSoUngTuyen "1" --> "0..1" ThanhVien : moiThuThanh
+    ThanhVien "1" *-- "0..*" DanhGiaThuViec : duocDanhGia
+    DanhGiaThuViec "0..*" --> "1" ThanhVien : nguoiDanhGia
+
+    %% Lich, diem danh, thi dau
+    LichBieu "1" *-- "0..*" DiemDanh : ghiNhan
+    DiemDanh "0..*" --> "1" ThanhVien : cua
+    TranDau "1" --> "1" LichBieu : lichThiDau
+    TranDau "1" *-- "0..*" ThamGiaTranDau : doiHinh
+    ThamGiaTranDau "0..*" --> "1" ThanhVien : cua
+
+    %% Quy
+    Quy "1" *-- "0..*" GiaoDich : ghiNhan
+    Quy "1" *-- "0..*" KhoanDongQuy : phatSinh
+    KhoanDongQuy "0..*" --> "1" ThanhVien : phaiDong
+    KhoanDongQuy "1" --> "0..1" GiaoDich : thanhToanBang
+    GiaoDich "0..*" --> "1" ThanhVien : nguoiThucHien
+
+    %% Thong bao
+    ThongBao "0..*" --> "1" ThanhVien : nguoiNhan
+
+    %% Rang buoc nghiep vu
+    note for ThanhVien "Flow: HoSoUngTuyen (tuyen) -> THU -> CHINH_THUC -> ThamGiaTranDau (thi dau)\nDA_LOAI: khong dat thu. ROI_DOI: roi doi.\nviTriThiDau, soAo chi co y nghia voi TUYEN_THU.\nChi thanh vien CHINH_THUC moi phai dong quy."
+    note for Quy "INVARIANT: soDu >= 0\nghiChi() chi thuc thi khi kiemTraKhaNangChi() == true"
+```
