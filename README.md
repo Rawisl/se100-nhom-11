@@ -21,7 +21,7 @@ Thành viên dùng hệ thống để xem lịch biểu, đóng quỹ qua QR và
 
 ## URL
 
-- Bản chạy: https://
+- Bản chạy: [https://squadmetrics.id.vn](https://squadmetrics.id.vn/)
 - Pipeline: xem tab Actions
 
 ## Cấu trúc repo
