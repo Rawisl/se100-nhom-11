@@ -57,31 +57,59 @@ classDiagram
         +chotKetQua() void
     }
 
+    class QuyTacLap {
+        +String maQuy
+        +List~int~ cacThu
+        +Time gioBatDau
+        +Time gioKetThuc
+        +Date ngayBatDau
+        +Date ngayKetThuc
+        +taoCacBuoi() List~LichBieu~
+        +suaTuBuoiNay(tu: LichBieu, gioMoi: Time, diaDiemMoi: String) void
+        +huyTuBuoiNay(tu: LichBieu, lyDo: String) void
+    }
+
     class LichBieu {
         +String maLich
         +String tieuDe
         +LoaiLich loai
+        +TrangThaiLich trangThai
         +DateTime batDau
         +DateTime ketThuc
         +String diaDiem
+        +bool daSuaRieng
         +kiemTraTrung() bool
+        +doiLich(batDau: DateTime, ketThuc: DateTime) void
+        +huyLich(lyDo: String) void
         +guiThongBao() void
     }
 
     class DiemDanh {
-        +bool coMat
-        +String lyDoVang
+        +PhanHoiThamGia phanHoi
+        +String lyDoXinNghi
+        +TrangThaiDiemDanh trangThai
+        +DateTime thoiGianGhiNhan
     }
 
     class TranDau {
         +String maTran
         +String tenGiai
         +String doiThu
+        +int diemDoiMinh
+        +int diemDoiThu
         +KetQuaTran ketQua
-        +String tySo
         +chotDoiHinh(ds: List~ThanhVien~) void
-        +ghiKetQua(kq: KetQuaTran, tySo: String) void
+        +ghiKetQua(diemMinh: int, diemDoi: int) void
     }
+
+    class ThamGiaTranDau {
+        +String viTri
+        +bool laDaChinh
+        +int phutThiDau
+        +float diemDanhGia
+        +String nhanXet
+    }
+
 
     class ThamGiaTranDau {
         +String viTri
@@ -105,16 +133,16 @@ classDiagram
         +kiemTraKhaNangChi(soTien: Decimal) bool
         +ghiThu(gd: GiaoDich) void
         +ghiChi(gd: GiaoDich) bool
-        +taoKhoanDongThang(ky: String, soTien: Decimal) List~KhoanDongQuy~
-        +nhacThanhVienChuaDong(ky: String) int
+        +taoKhoanDongThang(maTV: String, soTien: Decimal) List~KhoanDongQuy~
+        +nhacThanhVienChuaDong(maTV: String) int
     }
 
     class KhoanDongQuy {
         +String maKhoan
-        +String ky
+        +String maTV
         +Decimal soTien
         +Date hanDong
-        +TrangThaiKhoan trangThai
+        +TrangThaiDongQuy trangThai
         +taoMaQR() String
         +danhDauDaDong(gd: GiaoDich) void
     }
@@ -194,7 +222,7 @@ classDiagram
         TU_CHOI
     }
 
-    class TrangThaiKhoan {
+    class TrangThaiDongQuy {
         <<enumeration>>
         CHUA_DONG
         CHO_XAC_NHAN
@@ -202,10 +230,37 @@ classDiagram
         QUA_HAN
     }
 
+    class PhanHoiThamGia {
+        <<enumeration>>
+        CHUA_PHAN_HOI
+        SE_THAM_GIA
+        XIN_NGHI
+    }
+
+    class TrangThaiDiemDanh {
+        <<enumeration>>
+        CHUA_GHI_NHAN
+        CO_MAT
+        DI_MUON
+        VANG_CO_PHEP
+        VANG_KHONG_PHEP
+    }
+
+
+    class TrangThaiLich {
+        <<enumeration>>
+        DU_KIEN
+        DA_DOI
+        DA_HUY
+        HOAN_THANH
+    }
+
     class LoaiThongBao {
         <<enumeration>>
         NHAC_QUY
         LICH_MOI
+        LICH_DOI
+        LICH_HUY
         KET_QUA_HO_SO
     }
 
